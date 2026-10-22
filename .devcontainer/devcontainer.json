@@ -1,21 +1,19 @@
 {
   "name": "Tech Career Labs",
-  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bookworm",
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": { "minikube": "none" }
+    "ghcr.io/devcontainers/features/docker-in-docker:2": { "moby": false }
   },
-  "hostRequirements": { "cpus": 2, "memory": "8gb" },
   "forwardPorts": [8080, 5000, 5432],
   "portsAttributes": {
     "8080": { "label": "Lab website (nginx)" },
     "5000": { "label": "Orders API" },
     "5432": { "label": "PostgreSQL" }
   },
-  "postCreateCommand": "sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client jq >/dev/null && chmod +x */lab.sh",
+  "postCreateCommand": "sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client jq >/dev/null; chmod +x */lab.sh || true",
   "customizations": {
     "vscode": {
-      "extensions": ["ms-python.python", "ms-azuretools.vscode-docker", "mtxr.sqltools", "mtxr.sqltools-driver-pg"]
+      "extensions": ["ms-python.python", "ms-azuretools.vscode-docker"]
     }
   }
 }
