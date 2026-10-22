@@ -1,0 +1,49 @@
+# Lab 1 - Technical / Application Support
+# Start with:  ./lab.sh start
+name: lab1-support
+
+services:
+  db:
+    image: postgres:16-alpine
+    command: ["postgres", "-c", "max_connections=20", "-c", "shared_preload_libraries=pg_stat_statements"]
+    environment:
+      POSTGRES_DB: shop
+      POSTGRES_USER: shop
+      POSTGRES_PASSWORD: shop_admin_pw
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../shared/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./db/02_load.sql:/docker-entrypoint-initdb.d/02_load.sql:ro
+      - ./db/03_lab1_state.sql:/docker-entrypoint-initdb.d/03_lab1_state.sql:ro
+      - ./db/data:/data:ro
+      - dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U shop -d shop"]
+      interval: 5s
+      retries: 30
+
+  api:
+    build: ./app
+    env_file: ./app/api.env
+    volumes:
+      - ./app:/app                       # edit app.py, then: docker compose restart api
+      - ./runtime_logs/app:/var/log/shopfast
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./runtime_logs/nginx:/var/log/nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+volumes:
+  dbdata:

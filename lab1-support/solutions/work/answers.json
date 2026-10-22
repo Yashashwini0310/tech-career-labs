@@ -1,0 +1,12 @@
+{
+  "q1_total_requests": 41518,
+  "q2_total_5xx": 1350,
+  "q3_outage_start_hhmm": "14:05",
+  "q4_outage_end_hhmm": "14:41",
+  "q5_endpoint_most_5xx": "/api/orders/{id}",
+  "q6_top_ip": "185.220.101.47",
+  "q7_p95_ms_get_order": 93,
+  "q8_root_cause_error_text": "FATAL: sorry, too many clients already",
+  "q9_slowest_endpoint_avg": "/api/customers/{id}/orders",
+  "q10_partner_401_count": 697
+}

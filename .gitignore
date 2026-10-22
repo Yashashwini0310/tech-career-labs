@@ -1,0 +1,7 @@
+# generated data and runtime files
+**/db/data/
+**/runtime_logs/
+**/score_history.csv
+__pycache__/
+*.pyc
+.DS_Store

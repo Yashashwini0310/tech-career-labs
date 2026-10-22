@@ -1,0 +1,12 @@
+{
+  "q1_total_requests": null,
+  "q2_total_5xx": null,
+  "q3_outage_start_hhmm": null,
+  "q4_outage_end_hhmm": null,
+  "q5_endpoint_most_5xx": null,
+  "q6_top_ip": null,
+  "q7_p95_ms_get_order": null,
+  "q8_root_cause_error_text": null,
+  "q9_slowest_endpoint_avg": null,
+  "q10_partner_401_count": null
+}
